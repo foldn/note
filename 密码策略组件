@@ -1,0 +1,20 @@
+# passay简介
+1. passay是一个功能强大的密码策略库，我们可以通过这个库来对我们的密码进行多种多样的限制，也可以通过这个库来生成多种多样格式的密码。最常用的限制是，一个密码中同时包含大写字母、小写字母、数字以及特殊符号，还有一种就是与历史记录密码进行判断，不得使用历史密码
+2. 依赖包
+<dependency>
+    <groupId>org.passay</groupId>
+    <artifactId>passay</artifactId>
+    <version>1.6.2</version>
+</dependency>
+
+3. 核心组件
+  a. Rule：核心规则接口，提供了一个抽象方法validate用于对密码数据进行对应的规则校验
+    ⅰ. LengthRule：长度规则，例如最大最小长度
+    ⅱ. CharacterCharacteristicsRule：多种字符规则多选一，例如大写小写数字三选二
+    ⅲ. CharacterRule：字符规则，例如大写字母数量至少三个
+    ⅳ. CharacterOccurrencesRule：字符重复规则，例如限定重复字符不超过五个
+    ⅴ. IllegalSequenceRule：执行顺序规则，例如直接使用1234567890这种顺序字符
+    ⅵ. DictionaryRule：字典规则，例如排除字典中的弱密码
+  b. PasswordData：记录用户名以及用户密码的类，用在passay的密码校验过程中
+  c. PasswordValidator：密码校验器，类中有一个passwordRules属性记录了对应的校验规则，核心方法是其中的validate方法，这个方法会遍历passwordRules，执行每一个Rule中的validate方法进行规则校验（我们可以自定义校验规则）
+  d. PasswordGenerator：密码生成器，生成复合规则的密码
